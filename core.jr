@@ -1,0 +1,26 @@
+"Comments are just strings (for now)"
+(defmacro defun (name args &rest body)
+  (cons '= (cons name (list (append (list 'lambda args) body)))))
+
+"Lispy aliases."
+(= setq =)
+(setq eq? ==)
+
+"t and f and nil"
+(= t (js "true"))
+(= f (js "false"))
+(= nil (js "null"))
+
+(defun not (condition)
+  (empty? condition))
+
+(defmacro when (condition &rest body)
+  (list 'if condition (append (list 'progn) body) f))
+
+(defmacro unless (condition &rest body)
+  (list 'if condition f (append (list 'progn) body)))
+
+(defun each (items iterator)
+  (unless (empty? items)
+    (iterator (car items))
+    (each (cdr items) iterator)))
