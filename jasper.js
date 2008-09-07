@@ -108,9 +108,9 @@ var Jasper = (function() {
 
   // debug
   this['puts'] = function(string) {
-    if (console) return console.log(string)
-    if (Ruby) return Ruby.puts(strin)
-    if (print) return print(string)
+    if (Jasper.globalObject['console']) return console.log(string)
+    if (Jasper.globalObject['Ruby']) return Ruby.puts(string)
+    if (Jasper.globalObject['print']) return print(string)
   }
 
   this['debug'] = function(string) {
@@ -236,10 +236,15 @@ var Jasper = (function() {
   return jasper
 })();
 
+// runtimes don't necessarily expose the global object as 'window'
+Jasper.globalObject = this;
+
 Jasper.load = function(file) {
-  if ('Ruby' in window) {
+  if ('Ruby' in Jasper.globalObject) {
     Jasper( Ruby.File.read(file) )
-  } else if ('XMLHttpRequest' in window) {
+  } else if ('java' in Jasper.globalObject) {
+    Jasper( readFile(file) )
+  } else if ('XMLHttpRequest' in Jasper.globalObject) {
     var xhr = new XMLHttpRequest
     xhr.open('GET', file, false)
     xhr.send(null)
