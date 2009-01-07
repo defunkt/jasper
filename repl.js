@@ -13,6 +13,6 @@ Jasper.REPL = {
   },
 
   init: function() {
-    Jasper.load('/defunkt/jasper/raw/master/core.jr')
+    Jasper.load('http://github.com/defunkt/jasper/raw/master/core.jr')
   }
 }
