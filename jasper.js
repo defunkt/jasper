@@ -211,25 +211,39 @@ var Jasper = (function() {
 
   // math primitives
   this['+'] = function() {
-    var i = 0, sum = 0
+    var i, sum = 0
 
-    while (i < arguments.length) {
+    for (i = 0; i < arguments.length; i++)
       sum += arguments[i]
-      i += 1
-    }
 
     return sum
   }
 
   this['-'] = function() {
-    var i = 1, diff = arguments[0]
+    var i, diff = arguments[0]
 
-    while (i < arguments.length) {
+    for (i = 1; i < arguments.length; i++)
       diff -= arguments[i]
-      i += 1
-    }
 
     return diff
+  }
+
+  this['*'] = function() {
+    var i, product = arguments[0]
+
+    for (i = 1; i < arguments.length; i++)
+      product *= arguments[i]
+
+    return product
+  }
+
+  this['/'] = function() {
+    var i, quotient = arguments[0]
+
+    for (i = 1; i < arguments.length; i++)
+      quotient /= arguments[i]
+
+    return quotient
   }
 
   this['<']  = function(a, b) { return a < b }
