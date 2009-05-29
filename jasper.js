@@ -213,14 +213,24 @@ var Jasper = (function() {
 
   // math primitives
   this['+'] = function() {
-    var sum = 0
-    for (var i in arguments) sum += arguments[i]
+    var i = 0, sum = 0
+
+    while (i < arguments.length) {
+      sum += parseInt(arguments[i])
+      i += 1
+    }
+
     return sum
   }
 
   this['-'] = function() {
-    var diff = 0
-    for (var i in arguments) sum += arguments[i]
+    var i = 1, diff = arguments[0]
+
+    while (i < arguments.length) {
+      diff -= parseInt(arguments[i])
+      i += 1
+    }
+
     return diff
   }
 
