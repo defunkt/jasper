@@ -270,6 +270,9 @@ var Jasper = (function(global) {
     }
   }
 
+  // dirt simple api
+  jasper.scope = this
+
   // Jasper(string)
   return jasper
 })(this);
