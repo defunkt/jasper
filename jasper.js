@@ -142,6 +142,11 @@ var Jasper = (function(global) {
   // alias
   var emptyp = this['empty?']
 
+  this['list?'] = function(sexp) {
+    return sexp.constructor == Array
+  }
+  var listp = this['list?']
+
   this['list'] = function() {
     var i, arr = []
     for (i = 0; i < arguments.length; i++) arr.push(arguments[i])
