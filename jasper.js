@@ -278,5 +278,5 @@ var Jasper = (function(global) {
 })(this);
 
 Jasper.init = function() {
-  Jasper.load('core.jr')
+  Jasper.scope.load('core.jr')
 }
