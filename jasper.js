@@ -261,8 +261,6 @@ Jasper.globalObject = this;
 Jasper.load = function(file) {
   if ('Ruby' in Jasper.globalObject) {
     Jasper( Ruby.File.read(file) )
-//  } else if ('java' in Jasper.globalObject) {
-//    Jasper( readFile(file) )
   } else if ('XMLHttpRequest' in Jasper.globalObject) {
     var xhr = new XMLHttpRequest
     xhr.open('GET', file, false)
