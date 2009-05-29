@@ -127,7 +127,10 @@ var Jasper = (function(global) {
   }
 
   this['cdr'] = function(sexp) {
-    return sexp.slice(1, sexp.length)
+    if (sexp && sexp.slice)
+      return sexp.slice(1, sexp.length)
+    else
+      return sexp
   }
 
   // essentials
@@ -136,6 +139,18 @@ var Jasper = (function(global) {
   }
   this['if'].special = true
 
+  this['and'] = function() {
+    var ret, i
+
+    for (i = 0; i < arguments.length; i++) {
+      if (ret === false) return false
+      ret = jeval(this, arguments[i])
+    }
+
+    return ret
+  }
+  this['and'].special = true
+
   this['empty?'] = function(sexp) {
     return !sexp || sexp.length == 0
   }
@@ -143,7 +158,7 @@ var Jasper = (function(global) {
   var emptyp = this['empty?']
 
   this['list?'] = function(sexp) {
-    return sexp.constructor == Array
+    return sexp && sexp.constructor == Array
   }
   var listp = this['list?']
 
