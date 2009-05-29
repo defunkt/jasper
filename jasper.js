@@ -216,7 +216,7 @@ var Jasper = (function() {
     var i = 0, sum = 0
 
     while (i < arguments.length) {
-      sum += parseInt(arguments[i])
+      sum += arguments[i]
       i += 1
     }
 
@@ -227,7 +227,7 @@ var Jasper = (function() {
     var i = 1, diff = arguments[0]
 
     while (i < arguments.length) {
-      diff -= parseInt(arguments[i])
+      diff -= arguments[i]
       i += 1
     }
 
