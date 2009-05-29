@@ -251,9 +251,6 @@ var Jasper = (function() {
   this['>']  = function(a, b) { return a > b }
   this['>='] = function(a, b) { return a >= b }
 
-  // dirt simple api
-  jasper.scope = this
-
   // Jasper(string)
   return jasper
 })();
