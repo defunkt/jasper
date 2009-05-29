@@ -1,4 +1,6 @@
-var Jasper = (function() {
+var Jasper = (function(global) {
+  this.globalObject = global
+
   // entrance
   function jasper(input) {
     return jevalForms(this, parse(input))
@@ -106,9 +108,9 @@ var Jasper = (function() {
 
   // debug
   this['puts'] = function(string) {
-    if (Jasper.globalObject['console']) return console.log(string)
-    if (Jasper.globalObject['Ruby']) return Ruby.puts(string)
-    if (Jasper.globalObject['print']) return print(string)
+    if (globalObject['console']) return console.log(string)
+    if (globalObject['Ruby']) return Ruby.puts(string)
+    if (globalObject['print']) return print(string)
   }
 
   this['debug'] = function(string) {
@@ -251,25 +253,26 @@ var Jasper = (function() {
   this['>']  = function(a, b) { return a > b }
   this['>='] = function(a, b) { return a >= b }
 
+  // loading files
+  this['load'] = function(file) {
+    if (!/\.jr$/.test(file))
+      file = file + ".jr"
+
+    if ('Ruby' in globalObject) {
+      jasper( Ruby.File.read(file) )
+    } else if ('XMLHttpRequest' in globalObject) {
+      var xhr = new XMLHttpRequest
+      xhr.open('GET', file, false)
+      xhr.send(null)
+      jasper( xhr.responseText )
+    } else {
+      throw "Can't load " + file
+    }
+  }
+
   // Jasper(string)
   return jasper
-})();
-
-// runtimes don't necessarily expose the global object as 'window'
-Jasper.globalObject = this;
-
-Jasper.load = function(file) {
-  if ('Ruby' in Jasper.globalObject) {
-    Jasper( Ruby.File.read(file) )
-  } else if ('XMLHttpRequest' in Jasper.globalObject) {
-    var xhr = new XMLHttpRequest
-    xhr.open('GET', file, false)
-    xhr.send(null)
-    Jasper( xhr.responseText )
-  } else {
-    throw "Can't load " + file
-  }
-}
+})(this);
 
 Jasper.init = function() {
   Jasper.load('core.jr')
