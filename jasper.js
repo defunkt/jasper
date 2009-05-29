@@ -1,9 +1,7 @@
 var Jasper = (function() {
   // entrance
   function jasper(input) {
-    var ret, sexps = parse(input)
-    for (var key in sexps) ret = jeval(this, sexps[key])
-    return ret
+    return jevalForms(this, parse(input))
   }
   jasper.debug = false
 
